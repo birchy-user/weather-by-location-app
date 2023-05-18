@@ -1,32 +1,43 @@
 <script>
-  import svelteLogo from './assets/svelte.svg'
-  import viteLogo from '/vite.svg'
-  import Counter from './lib/Counter.svelte'
+  import { onMount } from 'svelte';
+
+  import Map from './lib/Map.svelte';
+  import { fetchWeatherData } from './api';
+
+  const PAGE_TITLE = import.meta.env.VITE_PROJECT_TITLE ?? 'Weather By Location App asdas';
+  const LOCATION = { lat: 56.95, lon: 24.10 };
+
+  let weatherData = null;
+  let loading = true;
+
+  onMount(async () => {
+      loading = false;
+
+      try {
+        weatherData = await fetchWeatherData(LOCATION);
+      } catch (error) {
+        console.error(error);
+      }
+  })
+
+  $: console.dir("Weather data: ", weatherData);
 </script>
 
-<main>
-  <div>
-    <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-      <img src={viteLogo} class="logo" alt="Vite Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank" rel="noreferrer">
-      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
-    </a>
-  </div>
-  <h1>Vite + Svelte</h1>
 
-  <div class="card">
-    <Counter />
-  </div>
+{#if !loading}
+  <main>
+    <h1>{PAGE_TITLE}</h1>
 
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme" target="_blank" rel="noreferrer">SvelteKit</a>, the official Svelte app framework powered by Vite!
-  </p>
+    <!-- {#if weatherData} -->
+      <!-- <p>Temperature: {weatherData.hourly.temperature_2m}°C</p> -->
+      <!-- Display other weather data as needed -->
+    <!-- {:else} -->
+      <!-- <p>Loading weather data...</p> -->
+    <!-- {/if} -->
 
-  <p class="read-the-docs">
-    Click on the Vite and Svelte logos to learn more
-  </p>
-</main>
+    <Map />
+  </main>
+{/if}
 
 <style>
   .logo {

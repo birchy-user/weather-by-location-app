@@ -1,7 +1,9 @@
 {
-  "name": "vite-project",
+  "name": "weather-by-location-app",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "description": "An app where you can get the weather based on the selected location on a map",
+  "author": "Roberts Pelle rp18023",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,7 +12,13 @@
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.0.3",
+    "@types/leaflet": "^1.9.3",
     "svelte": "^3.57.0",
     "vite": "^4.3.2"
+  },
+  "dependencies": {
+    "date-fns": "^2.30.0",
+    "leaflet": "^1.9.3",
+    "leaflet-openweathermap": "^1.0.0"
   }
 }
