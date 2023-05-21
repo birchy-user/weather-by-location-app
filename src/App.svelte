@@ -35,10 +35,12 @@
   }
 
   const onMapClick = async (event) => {
-    selectedLocation = event.detail;
-
-    const locationData = await getSelectedLocationData(selectedLocation);
+    
+    const locationData = await getSelectedLocationData(event.detail);
     const { address, category, display_name, lat, lon, type } = locationData;
+    
+    
+    selectedLocation = structuredClone(locationData);
 
     // Workaround for accessing field named "class"
     const classOfLocation = location.class;
@@ -66,9 +68,9 @@
   onMount(async () => {
       loading = false;
   })
-
-  $: console.dir("Weather data: ", weatherData);
 </script>
+
+<!-- {@debug selectedLocation} -->
 
 
 {#if !loading}

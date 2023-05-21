@@ -1,7 +1,5 @@
 <script>
     export let locations = [];
-
-    $: console.dir("Added locations: ", locations);
 </script>
 
 <div class="locations-list">
